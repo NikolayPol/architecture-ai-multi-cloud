@@ -8,15 +8,17 @@ pipeline:
   analyzer: "char_wb"                      # Символьные N-граммы
   min_ngram: 1
   max_ngram: 2                             # Уменьшены размеры N-грамм для ускорения
+  epochs: 50
 
 # Подключение предобученной модели трансформера (BERT)
-#- name: "LanguageModelFeaturizer"
-#  model_name: "bert"                       # Модель BERT для русского языка
-#  model_weights: "bert-base-cased"          # Весы модели BERT
-#  cache_dir: null
+- name: "LanguageModelFeaturizer"
+  model_name: "bert"                       # Модель BERT для русского языка
+  model_weights: "bert-base-cased"          # Весы модели BERT
+  cache_dir: null
+  epochs: 50
 
 - name: DIETClassifier                      # Классификатор на базе DIET
-  epochs: 1                                 # Минимальное количество эпох обучения
+  epochs: 50                                 # Минимальное количество эпох обучения
   transformer_size: 32                      # Минимальный размер слоя трансформера
   number_of_transformer_layers: 1           # Один слой трансформера
   use_masked_language_model: false          # Отключено для ускорения
@@ -26,7 +28,7 @@ pipeline:
 
 - name: EntitySynonymMapper                 # Маппер синонимов сущностей
 - name: ResponseSelector                    # Минимальный выбор ответа
-  epochs: 1                                 # Минимальное количество эпох обучения
+  epochs: 50                                 # Минимальное количество эпох обучения
 
 policies:
 - name: MemoizationPolicy
@@ -34,6 +36,6 @@ policies:
 - name: RulePolicy
 - name: TEDPolicy
   max_history: 2                            # Минимальное количество шагов в истории
-  epochs: 1                                 # Минимальное количество эпох обучения
+  epochs: 50                                 # Минимальное количество эпох обучения
   constrain_similarities: true
 assistant_id: 20250308-190440-cool-ramp

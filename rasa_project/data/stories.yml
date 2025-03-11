@@ -1,10 +1,13 @@
 version: "3.1"
 
 stories:
-  - story: greet and ask architecture
+  - story: greet
     steps:
       - intent: greet
       - action: utter_greet
+
+  - story: ask architecture
+    steps:
       - intent: ask_architecture
       - action: utter_architecture_response
 
